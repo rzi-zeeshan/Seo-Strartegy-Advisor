@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}8 Important SEO factors to implement{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Post content-->
+            <article>
+                <!-- Post header-->
+                <header class="mb-4">
+                    <!-- Post title-->
+                    <h1 class="fw-bolder mb-1">8 Important SEO factors to implement</h1>
+                    <!-- Post meta content-->
+                    <div class="text-muted fst-italic mb-2">Posted on May 6, 2024 by UOS Students</div>
+                    <!-- Post categories-->
+                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">Seo Knowledge</a>
+                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">Seo Analysis</a>
+                </header>
+                <!-- Preview image figure-->
+                <figure class="mb-4"><img class="img-fluid rounded" src="https://images.pexels.com/photos/67112/pexels-photo-67112.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="..." /></figure>
+                <!-- Post content-->
+                <section class="mb-5">
+                    <p class="fs-5 mb-4 ">Advanced Keywords Frequency Check</p>
+                    <p class="fs-5 mb-4">Using spaCy, the code performs advanced keyword frequency check by identifying synonyms and their frequency in the content.</p>
+                    
+                    <p class="fs-5 mb-4 ">Quality of Content</p>
+                    <p class="fs-5 mb-4">The code checks for the quality of content by analyzing word frequency, removing stopwords, calculating readability score using the Flesch Reading Ease formula, and comparing them against predefined thresholds.</p>
+                    
+                    <p class="fs-5 mb-4 ">Webpage Load Time Optimization</p>
+                    <p class="fs-5 mb-4">It evaluates the webpage load time and provides suggestions based on predefined thresholds.</p>
+                    
+                    <p class="fs-5 mb-4 ">Mobile Friendliness and Crawlability</p>
+                    <p class="fs-5 mb-4">The code checks if the webpage is mobile-friendly and crawlable by analyzing the presence of specific HTML tags and CSS media queries, and also checks for the availability of robots.txt file.</p>
+                    
+                    <p class="fs-5 mb-4 ">Presence of Keywords in URL, Title, and Heading</p>
+                    <p class="fs-5 mb-4">It verifies if the keywords are present in the URL, title, and heading of the webpage and provides suggestions accordingly.</p>
+                    
+                    <p class="fs-5 mb-4 ">Keywords Optimization Measure</p>
+                    <p class="fs-5 mb-4">It evaluates if the content is well-optimized for specific keywords based on their frequency and importance, providing suggestions accordingly.</p>
+                    
+                    <p class="fs-5 mb-4 ">User Behavior on Content</p>
+                    <p class="fs-5 mb-4">It suggests improvements in content based on user engagement signals, particularly focusing on keywords like 'improve'.</p>
+                    
+                    <p class="fs-5 mb-4 ">Finding Similar Words</p>
+                    <p class="fs-5 mb-4">It utilizes an API to find similar words for each keyword in the provided list and incorporates them into the suggestions.</p>
+                    
+                    <p class="fs-5 mb-4 ">These factors collectively assess various aspects of the content, webpage, and user engagement, providing comprehensive suggestions for improvement.</p>
+                </section>
+            </article>
+        </div>
+        <!-- Side bar-->
+        <div class="col-lg-4">
+            <!-- Categories widget-->
+            <div class="card mb-4">
+                <div class="card-header">Categories</div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li><a href="#!">Web Design</a></li>
+                        <li><a href="#!">Freebies</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

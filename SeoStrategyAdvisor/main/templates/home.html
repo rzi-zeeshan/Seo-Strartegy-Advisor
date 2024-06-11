@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+
+      {% if user.is_authenticated %}
+        <section class="banner">
+          <h2>Welcome back, {{ user.username }}!</h2>
+          <p class="lead">Analyze your website's SEO performance.</p>
+        </section>
+
+        <form method="post" action="{% url 'home' %}" class="mt-4">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="url" class="form-label">Website URL:</label>
+            <input type="url" class="form-control" id="url" name="url" placeholder="Enter your website URL" required>
+          </div>
+          <div class="mb-3">
+            <label for="keywords" class="form-label">Keywords (comma-separated):</label>
+            <input type="text" class="form-control" id="keywords" name="keywords" placeholder="Enter keywords" required>
+          </div>
+          <button type="submit" class="btn btn-secondary">Submit Analysis</button>
+          <a href="/signout" class="btn btn-danger mt-3">Logout</a>
+        </form>
+
+      {% else %}
+        <section class="banner text-center">
+          <h2>Welcome to the SEO Strategy Advisor!</h2>
+          <p class="enhanced-lead">
+            A user-friendly web application to analyze and improve your website's SEO performance.
+          </p>
+        </section>
+
+        <p>
+          Our web tool empowers website owners and businesses to enhance their online presence. Get suggestions on how to make your website more visible on search engines like Google. Simply input your website address and some keywords, and we'll provide recommendations for better search engine ranking. 
+        </p>
+        <p>
+          We prioritize user security, data privacy, and a smooth user experience. Join us in building a tool that helps website owners succeed in the digital world. 
+        </p>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <h3 class="text-center mb-4">Explore SEO Keywords Analysis</h3>
+  <div class="row row-cols-1 row-cols-md-3 g-4" id="keyword-images">
+    </div>
+</div>
+
+<script>
+// Fetch specific landscape images related to SEO keywords from Pexels API
+fetch('https://api.pexels.com/v1/search?query=SEO+Keywords&per_page=3', {
+  headers: {
+    'Authorization': 'PlJ8fH68NpdBEkHxyOgv74jnVowcRoxua9WkAO7nBtAa4nLbdRSyaguW'
+  }
+})
+.then(response => response.json())
+.then(data => {
+  const imagesContainer = document.getElementById('keyword-images');
+  data.photos.forEach(photo => {
+    // Filter out portrait-oriented images
+    if (photo.height < photo.width) {
+      const imageElement = document.createElement('img');
+      imageElement.src = photo.src.large2x;
+      imageElement.alt = photo.url;
+      imageElement.classList.add('img-fluid');
+      const imageLink = document.createElement('a');
+      imageLink.href = photo.url;
+      imageLink.target = '_blank';
+      imageLink.appendChild(imageElement);
+      const column = document.createElement('div');
+      column.classList.add('col');
+      column.appendChild(imageLink);
+      imagesContainer.appendChild(column);
+    }
+  });
+})
+.catch(error => console.error('Error fetching images:', error));
+</script>
+
+{% endblock %}

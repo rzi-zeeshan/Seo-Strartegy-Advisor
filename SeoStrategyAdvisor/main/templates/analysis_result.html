@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}Analysis Result - SEO Strategy Advisor{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Analysis Result</h2>
+    <p><strong>URL:</strong> {{ analysis.url }}</p>
+    <p><strong>Keywords:</strong> {{ analysis.keywords }}</p>
+    <p><strong>Content:</strong> {{ analysis.content }}</p>
+
+    <h3 class="mt-4">Advanced Keyword Analysis:</h3>
+    <ul class="list-group">
+        {% for keyword, count in analysis.keyword_analysis.items %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ keyword }}: {{ count }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% if suggestions %}
+    <div class="border mt-4 p-4 rounded shadow-sm">
+        <h2>Optimized Factors</h2>
+        <ul class="list-group">
+            {% for factor in analysis.optimizedfactor_set.all %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ factor.factor }}: {{ factor.detail }}
+                    <span class="badge badge-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.707 11.207a1 1 0 0 0 1.414 0l5-5a1 1 0 0 0-1.414-1.414L7 9.586 4.707 7.293a1 1 0 0 0-1.414 1.414l3 3z"/>
+                        </svg>
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <h3 class="mt-4">Suggestions</h3>
+        <ul class="list-group">
+            {% for suggestion in suggestions %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ suggestion.suggestion_text }}
+                    <span class="badge badge-danger">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 1 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+
+<div class="container mt-5 mb-3">
+    <button class="btn btn-primary" id="downloadBtn">Download Suggestions</button>
+</div>
+
+<script>
+    function decodeEntities(encodedString) {
+        var textArea = document.createElement('textarea');
+        textArea.innerHTML = encodedString;
+        return textArea.value;
+    }
+
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+        var suggestionsData = "";
+        {% for suggestion in suggestions %}
+            suggestionsData += decodeEntities("{{ suggestion.suggestion_text }}") + "\n";
+        {% endfor %}
+
+        var blob = new Blob([suggestionsData], { type: 'text/plain' });
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'suggestions.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    });
+</script>
+{% endblock %}
